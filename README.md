@@ -10,15 +10,15 @@
 - [x] Install [Chakra UI](https://chakra-ui.com) and add integrate it as part of the project.
 - [x] Replace all basic html components with Chakra UI components.
 - [x] Deploy the project to [Vercel](https://vercel.com/) and provide the URL link.
-- The initial objective is to update the text value found within the component `DynamicText.tsx` by calling the function `changeValue` and passing a value to it.
-- The `changeValue` function have to be called from the `index.tsx` file inside the `onChange` which is called by the `input` component. The value of the input should match as the text displayed in `DynamicText.tsx`.
-- This is to be completed by only using [React references](https://reactjs.org/docs/refs-and-the-dom.html). No props, context or external library should be used to solve this problem. Only React references should be used by referencing the `DynamicText` component and calling the `changeValue` within it.
-- Make the DynamicText component responsive to break if the word gets to long and goes beyond the width. Use the Chakra UI library.
-- Redeploy the project after being completed.
+- [x] The initial objective is to update the text value found within the component `DynamicText.tsx` by calling the function `changeValue` and passing a value to it.
+- [x] The `changeValue` function have to be called from the `index.tsx` file inside the `onChange` which is called by the `input` component. The value of the input should match as the text displayed in `DynamicText.tsx`.
+- [x] This is to be completed by only using [React references](https://reactjs.org/docs/refs-and-the-dom.html). No props, context or external library should be used to solve this problem. Only React references should be used by referencing the `DynamicText` component and calling the `changeValue` within it.
+- [x] Make the DynamicText component responsive to break if the word gets to long and goes beyond the width. Use the Chakra UI library.
+- [x] Redeploy the project after being completed.
 
 ### Extra Points
 
-- Currently the import of the `DynamicText` component in `pages/index.tsx` is as follows `import DynamicText from "../components/DynamicText";`. Using typescript, change the configurations so the the import would look like this `import DynamicText from "components/DynamicText";` in the `index.tsx` file.
+- [x] Currently the import of the `DynamicText` component in `pages/index.tsx` is as follows `import DynamicText from "../components/DynamicText";`. Using typescript, change the configurations so the the import would look like this `import DynamicText from "components/DynamicText";` in the `index.tsx` file.
 
 ## Test 2 (Frontend)
 
