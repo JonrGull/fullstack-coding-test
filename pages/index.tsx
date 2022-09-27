@@ -1,12 +1,15 @@
+import { Input } from "@chakra-ui/react";
 import Head from "next/head";
+import { useRef } from "react";
+
 import DynamicText from "../components/DynamicText";
 import styles from "../styles/Home.module.css";
 
-import { Input } from "@chakra-ui/react";
-
 const Home = () => {
+  const dynamicTextRef = useRef(null);
+
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(e.target.value);
+    dynamicTextRef.current.changeValue(e.target.value);
   };
 
   return (
@@ -17,7 +20,7 @@ const Home = () => {
       </Head>
 
       <main className={styles.main}>
-        <DynamicText />
+        <DynamicText ref={dynamicTextRef} />
         <Input onChange={onChange} />
       </main>
     </div>

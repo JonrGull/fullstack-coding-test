@@ -9,7 +9,7 @@
 - [x] Fork then Clone the repo locally and run it.
 - [x] Install [Chakra UI](https://chakra-ui.com) and add integrate it as part of the project.
 - [x] Replace all basic html components with Chakra UI components.
-- Deploy the project to [Vercel](https://vercel.com/) and provide the URL link.
+- [x] Deploy the project to [Vercel](https://vercel.com/) and provide the URL link.
 - The initial objective is to update the text value found within the component `DynamicText.tsx` by calling the function `changeValue` and passing a value to it.
 - The `changeValue` function have to be called from the `index.tsx` file inside the `onChange` which is called by the `input` component. The value of the input should match as the text displayed in `DynamicText.tsx`.
 - This is to be completed by only using [React references](https://reactjs.org/docs/refs-and-the-dom.html). No props, context or external library should be used to solve this problem. Only React references should be used by referencing the `DynamicText` component and calling the `changeValue` within it.
