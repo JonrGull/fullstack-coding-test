@@ -4,4 +4,5 @@
     "singleQuote": false,
     "jsxBracketSameLine": true,
     "trailingComma": "es5"
+    
   }

@@ -21,4 +21,6 @@ const DynamicText = forwardRef((_props, ref) => {
   );
 });
 
+DynamicText.displayName = "DynamicText";
+
 export default DynamicText;
