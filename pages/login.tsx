@@ -12,13 +12,14 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 import { useAuth } from "context/AuthContext";
-import router, { Router } from "next/router";
+import { useRouter } from "next/router";
 import { useRef, useState } from "react";
 
 export default function Signin() {
   const { user, login } = useAuth();
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
+  const router = useRouter();
 
   const handleLogin = async (e: { preventDefault: () => void }) => {
     e.preventDefault();

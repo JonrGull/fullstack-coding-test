@@ -16,12 +16,14 @@ import {
   useColorModeValue,
   useDisclosure,
 } from "@chakra-ui/react";
-import router, { Router } from "next/router";
+import { useRouter } from "next/router";
 import { useAuth } from "./AuthContext";
 
 export default function Navbar() {
   const { isOpen, onToggle } = useDisclosure();
   const { user, logout } = useAuth();
+
+  const router = useRouter();
 
   return (
     <Box>
