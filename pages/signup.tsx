@@ -6,7 +6,6 @@ import {
   FormControl,
   FormLabel,
   Heading,
-  HStack,
   Input,
   InputGroup,
   InputRightElement,
@@ -16,12 +15,14 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 import { useAuth } from "context/AuthContext";
+import { useRouter } from "next/router";
 import { useRef, useState } from "react";
 
 export default function Signup() {
-  const { user, signUp } = useAuth();
+  const { signUp } = useAuth();
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
+  const router = useRouter();
 
   const [showPassword, setShowPassword] = useState(false);
 
@@ -30,6 +31,7 @@ export default function Signup() {
 
     try {
       await signUp(emailRef.current.value, passwordRef.current.value);
+      router.push("/");
     } catch (error) {
       console.log(error);
     }
@@ -75,7 +77,7 @@ export default function Signup() {
             </Stack>
             <Stack pt={6}>
               <Text align={"center"}>
-                Already a user?
+                Already a user?{" "}
                 <Link href="/login" color={"blue.400"}>
                   Login
                 </Link>

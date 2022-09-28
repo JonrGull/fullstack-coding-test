@@ -13,10 +13,10 @@ import {
 } from "@chakra-ui/react";
 import { useAuth } from "context/AuthContext";
 import { useRouter } from "next/router";
-import { useRef, useState } from "react";
+import { useRef } from "react";
 
 export default function Signin() {
-  const { user, login } = useAuth();
+  const { login } = useAuth();
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
@@ -26,6 +26,7 @@ export default function Signin() {
 
     try {
       await login(emailRef.current.value, passwordRef.current.value);
+      router.push("/");
     } catch (error) {
       console.log(error);
     }
@@ -53,10 +54,7 @@ export default function Signin() {
                 <Link color={"blue.400"}>Forgot password?</Link>
               </Stack>
               <Button
-                onClick={(e) => {
-                  handleLogin(e);
-                  router.push("/");
-                }}
+                onClick={(e) => handleLogin(e)}
                 bg={"blue.400"}
                 color={"white"}
                 _hover={{

@@ -17,6 +17,7 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import { useRouter } from "next/router";
+
 import { useAuth } from "./AuthContext";
 
 export default function Navbar() {
@@ -51,6 +52,8 @@ export default function Navbar() {
             fontFamily={"heading"}
             color={useColorModeValue("gray.800", "white")}>
             {user ? <>Hello, {user.email}!</> : ""}
+
+
           </Text>
 
           <Flex display={{ base: "none", md: "flex" }} ml={10}>
