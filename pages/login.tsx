@@ -12,20 +12,19 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 import { useAuth } from "context/AuthContext";
-import { useState } from "react";
+import router, { Router } from "next/router";
+import { useRef, useState } from "react";
 
 export default function Signin() {
   const { user, login } = useAuth();
-  const [data, setData] = useState({
-    email: "",
-    password: "",
-  });
+  const emailRef = useRef<HTMLInputElement>(null);
+  const passwordRef = useRef<HTMLInputElement>(null);
 
   const handleLogin = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
 
     try {
-      await login(data.email, data.password);
+      await login(emailRef.current.value, passwordRef.current.value);
     } catch (error) {
       console.log(error);
     }
@@ -41,27 +40,11 @@ export default function Signin() {
           <Stack spacing={4}>
             <FormControl id="email">
               <FormLabel>Email address</FormLabel>
-              <Input
-                type="email"
-                onChange={(e) =>
-                  setData({
-                    ...data,
-                    email: e.target.value,
-                  })
-                }
-              />
+              <Input type="email" ref={emailRef} />
             </FormControl>
             <FormControl id="password">
               <FormLabel>Password</FormLabel>
-              <Input
-                type="password"
-                onChange={(e) =>
-                  setData({
-                    ...data,
-                    password: e.target.value,
-                  })
-                }
-              />
+              <Input type="password" ref={passwordRef} />
             </FormControl>
             <Stack spacing={10}>
               <Stack direction={{ base: "column", sm: "row" }} align={"start"} justify={"space-between"}>
@@ -69,7 +52,10 @@ export default function Signin() {
                 <Link color={"blue.400"}>Forgot password?</Link>
               </Stack>
               <Button
-                onClick={handleLogin}
+                onClick={(e) => {
+                  handleLogin(e);
+                  router.push("/");
+                }}
                 bg={"blue.400"}
                 color={"white"}
                 _hover={{
