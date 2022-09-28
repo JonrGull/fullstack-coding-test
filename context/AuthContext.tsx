@@ -4,7 +4,7 @@ import { auth } from "../config/firebase";
 
 const AuthContext = createContext<any>({});
 
-export const userAuth = () => useContext(AuthContext);
+export const useAuth = () => useContext(AuthContext);
 
 export const AuthContextProvider = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = useState<any>(null);
@@ -16,7 +16,6 @@ export const AuthContextProvider = ({ children }: { children: React.ReactNode })
         setUser({
           uid: user.uid,
           email: user.email,
-          displayName: user.displayName,
         });
       } else {
         setUser(null);
@@ -27,7 +26,7 @@ export const AuthContextProvider = ({ children }: { children: React.ReactNode })
     return () => unsubscribe();
   }, []);
 
-  const signup = (email: string, password: string) => {
+  const signUp = (email: string, password: string) => {
     return createUserWithEmailAndPassword(auth, email, password);
   };
 
@@ -41,6 +40,6 @@ export const AuthContextProvider = ({ children }: { children: React.ReactNode })
   };
 
   return (
-    <AuthContext.Provider value={{ user, login, signup, logout }}>{loading ? null : children}</AuthContext.Provider>
+    <AuthContext.Provider value={{ user, login, signUp, logout }}>{loading ? null : children}</AuthContext.Provider>
   );
 };

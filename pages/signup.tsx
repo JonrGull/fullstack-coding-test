@@ -14,10 +14,11 @@ import {
   Text,
   useColorModeValue,
 } from "@chakra-ui/react";
-import { userAuth } from "context/AuthContext";
+import { useAuth } from "context/AuthContext";
 import { useState } from "react";
 
 export default function Signup() {
+  const { user, signUp } = useAuth();
   const [data, setData] = useState({
     email: "",
     password: "",
@@ -25,13 +26,11 @@ export default function Signup() {
 
   const [showPassword, setShowPassword] = useState(false);
 
-  const { createUser } = userAuth();
-
-  const handleSubmit = async (e: { preventDefault: () => void }) => {
+  const handleSignUp = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
 
     try {
-      await createUser(data.email, data.password);
+      await signUp(data.email, data.password);
     } catch (error) {
       console.log(error);
     }
@@ -80,7 +79,7 @@ export default function Signup() {
             </FormControl>
             <Stack spacing={10} pt={2}>
               <Button
-                onClick={handleSubmit}
+                onClick={handleSignUp}
                 loadingText="Submitting"
                 size="lg"
                 bg={"blue.400"}

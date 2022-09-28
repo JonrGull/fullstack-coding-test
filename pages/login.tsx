@@ -11,22 +11,21 @@ import {
   Stack,
   useColorModeValue,
 } from "@chakra-ui/react";
-import { userAuth } from "context/AuthContext";
+import { useAuth } from "context/AuthContext";
 import { useState } from "react";
 
 export default function Signin() {
+  const { user, login } = useAuth();
   const [data, setData] = useState({
     email: "",
     password: "",
   });
 
-  const { createUser } = userAuth();
-
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleLogin = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
 
     try {
-      await createUser(data.email, data.password);
+      await login(data.email, data.password);
     } catch (error) {
       console.log(error);
     }
@@ -70,6 +69,7 @@ export default function Signin() {
                 <Link color={"blue.400"}>Forgot password?</Link>
               </Stack>
               <Button
+                onClick={handleLogin}
                 bg={"blue.400"}
                 color={"white"}
                 _hover={{
