@@ -1,5 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
+import { collection, Firestore, getDocs, getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_API_KEY,
@@ -14,3 +15,11 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 
 export const auth = getAuth(app);
+export const db = getFirestore(app);
+
+async function getPosts(db: Firestore) {
+  const postsCol = collection(db, "posts");
+  const postsSnapshot = await getDocs(postsCol);
+  const postList = postsSnapshot.docs.map((doc) => doc.data());
+  return postList;
+}

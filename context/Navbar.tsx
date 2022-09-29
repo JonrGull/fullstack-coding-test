@@ -1,28 +1,24 @@
 import { CloseIcon, HamburgerIcon } from "@chakra-ui/icons";
-import
-  {
-    Avatar,
-    Box,
-    Button,
-    Flex,
-    HStack,
-    IconButton,
-    Link,
-    Menu,
-    MenuButton,
-    MenuDivider,
-    MenuItem,
-    MenuList,
-    Stack,
-    Text,
-    useColorModeValue,
-    useDisclosure
-  } from "@chakra-ui/react";
-import { ReactNode } from "react";
-
+import {
+  Avatar,
+  Box,
+  Button,
+  Flex,
+  HStack,
+  IconButton,
+  Link,
+  Menu,
+  MenuButton,
+  MenuDivider,
+  MenuItem,
+  MenuList,
+  Stack,
+  Text,
+  useColorModeValue,
+  useDisclosure,
+} from "@chakra-ui/react";
 import Image from "next/image";
 import { useRouter } from "next/router";
-
 import siventhLogo from "public/favicon.ico";
 
 import { useAuth } from "./AuthContext";
@@ -34,7 +30,7 @@ const Links = [
   },
   {
     name: "Blog",
-    href: "/blog",
+    href: "/posts/blog",
   },
   {
     name: "Secret",
@@ -94,6 +90,7 @@ export default function Navbar() {
               ))}
             </HStack>
           </HStack>
+
           <Flex alignItems={"center"}>
             <Menu>
               <Text mr={10}> {user ? <> Hello, {user.email}! </> : ""}</Text>
@@ -125,4 +122,3 @@ export default function Navbar() {
     </>
   );
 }
-

@@ -64,6 +64,18 @@ export default function Signin() {
               </Button>
             </Stack>
           </Stack>
+
+          <Stack spacing={10} mt={10}>
+            <Button
+              onClick={() => router.push("/signup")}
+              bg={"blue.400"}
+              color={"white"}
+              _hover={{
+                bg: "blue.500",
+              }}>
+              Create Account
+            </Button>
+          </Stack>
         </Box>
       </Stack>
     </Flex>

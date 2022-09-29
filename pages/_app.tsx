@@ -14,12 +14,14 @@ const MyApp = ({ Component, pageProps }) => {
   return (
     <ChakraProvider>
       <AuthContextProvider>
-        <Navbar />
         {noAuthPages.includes(router.pathname) ? (
           <Component {...pageProps} />
         ) : (
           <ProtectedRoute>
-            <Component {...pageProps} />
+            <>
+              <Navbar />
+              <Component {...pageProps} />
+            </>
           </ProtectedRoute>
         )}
       </AuthContextProvider>
