@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
+import { Text } from "@chakra-ui/react";
 import { db } from "config/firebase";
-import { addDoc, collection } from "firebase/firestore";
+import { addDoc, collection, Firestore, getDocs } from "firebase/firestore";
+import Image from "next/image";
 
 export default function Blog() {
-  
+  const [posts, setPosts] = useState([]);
+
   const submitPost = async () => {
     try {
       const docRef = await addDoc(collection(db, "posts"), {
@@ -18,11 +21,37 @@ export default function Blog() {
     }
   };
 
+  const getPosts = async (db: Firestore) => {
+    const postsCol = collection(db, "posts");
+    const postsSnapshot = await getDocs(postsCol);
+    const postList = postsSnapshot.docs.map((doc) => doc.data());
+    setPosts(postList);
+    return postList;
+  };
 
+  //! used for real time?
+  // const getPostsSnapshot = async () => {
+  //   const querySnapshot = await getDocs(collection(db, "posts"));
+  //   querySnapshot.forEach((doc) => {
+  //     console.log(`${doc}`);
+  //   });
+  // };
+
+  useEffect(() => {
+    getPosts(db);
+  }, []);
 
   return (
     <div>
-      <h1>Blog</h1>
+      <button onClick={submitPost}>Submit Post</button>
+      <h1>Posts</h1>
+      {posts.map((post) => (
+        <div key={post.id}>
+          <Text>{post.title}</Text>
+          <Text>{post.content}</Text>
+          <Image src={post.img} alt="post" width={50} height={50} />
+        </div>
+      ))}
     </div>
   );
 }
