@@ -22,9 +22,9 @@
 
 ## Test 2 (Frontend)
 
-- Integrate firebase authentication with React Context that provides the auth state of the user globally in any component.
-- Create a sign up and sign in page that integrates with firebase authentication.
-- `pages/index.tsx` should be a protected route and only accessible after user has signed in or created an account.
+- [x] Integrate firebase authentication with React Context that provides the auth state of the user globally in any component.
+- [x] Create a sign up and sign in page that integrates with firebase authentication.
+- [x] `pages/index.tsx` should be a protected route and only accessible after user has signed in or created an account.
 - Create a new page `pages/blog.tsx`.
 - Within this new page, develop a UI that will display multiple blog card, each representing a blog article.
 - Each blog card should consist of a image and title.

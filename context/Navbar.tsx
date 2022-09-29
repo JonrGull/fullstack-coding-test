@@ -1,22 +1,23 @@
 import { CloseIcon, HamburgerIcon } from "@chakra-ui/icons";
-import {
-  Avatar,
-  Box,
-  Button,
-  Flex,
-  HStack,
-  IconButton,
-  Link,
-  Menu,
-  MenuButton,
-  MenuDivider,
-  MenuItem,
-  MenuList,
-  Stack,
-  Text,
-  useColorModeValue,
-  useDisclosure,
-} from "@chakra-ui/react";
+import
+  {
+    Avatar,
+    Box,
+    Button,
+    Flex,
+    HStack,
+    IconButton,
+    Link,
+    Menu,
+    MenuButton,
+    MenuDivider,
+    MenuItem,
+    MenuList,
+    Stack,
+    Text,
+    useColorModeValue,
+    useDisclosure
+  } from "@chakra-ui/react";
 import { ReactNode } from "react";
 
 import Image from "next/image";
@@ -26,9 +27,22 @@ import siventhLogo from "public/favicon.ico";
 
 import { useAuth } from "./AuthContext";
 
-const Links = ["Home", "Blog", "Secrets"];
+const Links = [
+  {
+    name: "Home",
+    href: "/",
+  },
+  {
+    name: "Blog",
+    href: "/blog",
+  },
+  {
+    name: "Secret",
+    href: "/secret",
+  },
+];
 
-const NavLink = ({ children }: { children: ReactNode }) => (
+const NavLink = ({ children, href }: { children: React.ReactNode; href: string }) => (
   <Link
     px={2}
     py={1}
@@ -37,7 +51,7 @@ const NavLink = ({ children }: { children: ReactNode }) => (
       textDecoration: "none",
       bg: useColorModeValue("gray.200", "gray.700"),
     }}
-    href={"#"}>
+    href={href}>
     {children}
   </Link>
 );
@@ -74,7 +88,9 @@ export default function Navbar() {
             </Box>
             <HStack as={"nav"} spacing={4} display={{ base: "none", md: "flex" }}>
               {Links.map((link) => (
-                <NavLink key={link}>{link}</NavLink>
+                <NavLink key={link.name} href={link.href}>
+                  {link.name}
+                </NavLink>
               ))}
             </HStack>
           </HStack>
@@ -98,7 +114,9 @@ export default function Navbar() {
           <Box pb={4} display={{ md: "none" }}>
             <Stack as={"nav"} spacing={4}>
               {Links.map((link) => (
-                <NavLink key={link}>{link}</NavLink>
+                <NavLink key={link.name} href={""}>
+                  {link.name}
+                </NavLink>
               ))}
             </Stack>
           </Box>
@@ -107,3 +125,4 @@ export default function Navbar() {
     </>
   );
 }
+
