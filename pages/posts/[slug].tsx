@@ -1,12 +1,43 @@
-import React, { useEffect, useState } from "react";
-
-import { Text } from "@chakra-ui/react";
+import { Box, Container, Divider, Heading, Image, Link, Text, useDisclosure, Wrap, WrapItem } from "@chakra-ui/react";
+import BlogModal from "components/BlogModal";
 import { db } from "config/firebase";
 import { addDoc, collection, Firestore, getDocs } from "firebase/firestore";
-import Image from "next/image";
+import React, { useEffect, useState } from "react";
+
+interface BlogAuthorProps {
+  date: Date;
+  name: string;
+}
+
+// export const BlogAuthor: React.FC<BlogAuthorProps> = (props) => {
+//   return (
+//     <HStack marginTop="2" spacing="2" display="flex" alignItems="center">
+//       <Image
+//         borderRadius="full"
+//         boxSize="40px"
+//         src="https://100k-faces.glitch.me/random-image"
+//         alt={`Avatar of ${props.name}`}
+//       />
+//       <Text fontWeight="medium">{props.name}</Text>
+//       <Text>—</Text>
+//       <Text>{props.date.toLocaleDateString()}</Text>
+//     </HStack>
+//   );
+// };
 
 export default function Blog() {
   const [posts, setPosts] = useState([]);
+  const [postData, setPostData] = useState({
+    title: "",
+    content: "",
+    img: "",
+  });
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
+  const selectedPost = (post: React.SetStateAction<{ title: string; content: string; img: string }>) => {
+    setPostData(post);
+    onOpen();
+  };
 
   const submitPost = async () => {
     try {
@@ -42,16 +73,50 @@ export default function Blog() {
   }, []);
 
   return (
-    <div>
-      <button onClick={submitPost}>Submit Post</button>
-      <h1>Posts</h1>
-      {posts.map((post) => (
-        <div key={post.id}>
-          <Text>{post.title}</Text>
-          <Text>{post.content}</Text>
-          <Image src={post.img} alt="post" width={50} height={50} />
-        </div>
-      ))}
-    </div>
+    <Container maxW={"7xl"} p="12">
+      {isOpen ? <BlogModal postData={postData} isOpen={isOpen} onClose={onClose} /> : null}
+      <Heading as="h2" marginTop="5">
+        Latest articles
+      </Heading>
+      <Divider marginTop="5" />
+      <Wrap spacing="30px" marginTop="5">
+        {posts.map((post, index) => (
+          <WrapItem
+            onClick={() => selectedPost(post)}
+            key={index}
+            width={{ base: "100%", sm: "45%", md: "45%", lg: "30%" }}>
+            <Box w="100%">
+              <Box borderRadius="lg" overflow="hidden">
+                <Link textDecoration="none" _hover={{ textDecoration: "none" }}>
+                  <Image
+                    transform="scale(1.0)"
+                    src={post.img}
+                    alt="some text"
+                    objectFit="contain"
+                    width="100%"
+                    transition="0.3s ease-in-out"
+                    _hover={{
+                      transform: "scale(1.05)",
+                    }}
+                  />
+                </Link>
+              </Box>
+
+              <Heading fontSize="xl" marginTop="2">
+                <Link textDecoration="none" _hover={{ textDecoration: "none" }}>
+                  {post.title}
+                </Link>
+              </Heading>
+
+              <Text as="p" fontSize="md" marginTop="2">
+                {post.content}
+              </Text>
+
+              {/* <BlogAuthor name="John Doe" date={new Date("2021-04-06T19:01:27Z")} /> */}
+            </Box>
+          </WrapItem>
+        ))}
+      </Wrap>
+    </Container>
   );
 }
