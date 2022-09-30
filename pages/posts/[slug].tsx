@@ -15,7 +15,7 @@ import BlogModal from "components/BlogModal";
 import { db } from "config/firebase";
 import { addDoc, collection, deleteDoc, doc, Firestore, onSnapshot } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
-import randomPosts from "utils/randomPost";
+import randomPosts from "utils/randomPosts.json";
 
 type PostFormat = {
   id: string;
@@ -41,7 +41,7 @@ export default function Blog() {
 
   const submitPost = async () => {
     try {
-      const randomPost = randomPosts[Math.floor(Math.random() * randomPosts.length)];
+      const randomPost = randomPosts["posts"][Math.floor(Math.random() * randomPosts["posts"].length)];
       await addDoc(collection(db, "posts"), {
         title: randomPost.title,
         content: randomPost.content,
@@ -71,15 +71,15 @@ export default function Blog() {
     }
   };
 
-  console.log(posts);
-
   useEffect(() => {
     realTimeGetPosts(db);
   }, []);
 
   return (
     <Container maxW={"7xl"} p="12">
-      <Button onClick={submitPost}>Submit test post</Button>
+      <Button backgroundColor={"green.300"} color={"white"} onClick={submitPost}>
+        Submit test post
+      </Button>
       {isOpen ? <BlogModal postData={postData} isOpen={isOpen} onClose={onClose} /> : null}
       <Heading as="h2" marginTop="5">
         Latest articles
@@ -114,7 +114,9 @@ export default function Blog() {
               <Text as="p" fontSize="md" marginTop="2">
                 {post.content}
               </Text>
-              <Button onClick={() => deletePost(post.id)}>Delete</Button>
+              <Button backgroundColor={"red.300"} color={"white"} onClick={() => deletePost(post.id)}>
+                Delete
+              </Button>
             </Box>
           </WrapItem>
         ))}

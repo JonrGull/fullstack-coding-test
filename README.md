@@ -1,3 +1,27 @@
+# Install
+
+- Install all packages using
+
+      yarn install
+
+- Initiate the app with
+
+      yarn dev
+
+## Environmental variables
+
+- A firebase account and web app is needed to run this app
+- Create an `.env.local` file in the root of the project.
+- Add these variables to their corresponding values found in your firebase project settings:
+
+      NEXT_PUBLIC_API_KEY=
+      NEXT_PUBLIC_AUTH_DOMAIN=
+      NEXT_PUBLIC_PROJECT_ID=
+      NEXT_PUBLIC_STORAGE_BUCKET=
+      NEXT_PUBLIC_MESSAGING_SENDER_ID=
+      NEXT_PUBLIC_APP_ID=
+      NEXT_PUBLIC_MEASUREMENT_ID=
+
 # Coding Tests
 
 - Fullstack Developer - Do Test 1, 2 and 3
@@ -30,7 +54,7 @@
 - [x] Each blog card should consist of a image and title.
 - [x] When a blog card is clicked, a modal should pop up displaying the content of the article.
 - [x] All blog data should be stored on [Firebase firestore](https://firebase.google.com/docs/firestore).
-- The blog card listing and articles should update in real time using the Firebase JS SDK.
+- [x] The blog card listing and articles should update in real time using the Firebase JS SDK.
 
 ## Test 3 (Fullstack/Backend)
 
