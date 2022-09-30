@@ -1,5 +1,10 @@
+import { Text } from "@chakra-ui/react";
 import React from "react";
 
 export default function secret() {
-  return <div>secret</div>;
+  return (
+    <Text fontSize="sm" color="white">
+      You found me!
+    </Text>
+  );
 }

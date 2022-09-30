@@ -1,40 +1,39 @@
-import { Box, Container, Divider, Heading, Image, Link, Text, useDisclosure, Wrap, WrapItem } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Container,
+  Divider,
+  Heading,
+  Image,
+  Link,
+  Text,
+  useDisclosure,
+  Wrap,
+  WrapItem,
+} from "@chakra-ui/react";
 import BlogModal from "components/BlogModal";
 import { db } from "config/firebase";
 import { addDoc, collection, Firestore, getDocs } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
 
-interface BlogAuthorProps {
-  date: Date;
-  name: string;
-}
-
-// export const BlogAuthor: React.FC<BlogAuthorProps> = (props) => {
-//   return (
-//     <HStack marginTop="2" spacing="2" display="flex" alignItems="center">
-//       <Image
-//         borderRadius="full"
-//         boxSize="40px"
-//         src="https://100k-faces.glitch.me/random-image"
-//         alt={`Avatar of ${props.name}`}
-//       />
-//       <Text fontWeight="medium">{props.name}</Text>
-//       <Text>—</Text>
-//       <Text>{props.date.toLocaleDateString()}</Text>
-//     </HStack>
-//   );
-// };
+type PostFormat = {
+  id: string;
+  title: string;
+  content: string;
+  img: string;
+};
 
 export default function Blog() {
-  const [posts, setPosts] = useState([]);
+  const [posts, setPosts] = useState<PostFormat[]>([]);
   const [postData, setPostData] = useState({
+    id: "",
     title: "",
     content: "",
     img: "",
   });
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  const selectedPost = (post: React.SetStateAction<{ title: string; content: string; img: string }>) => {
+  const selectedPost = (post: React.SetStateAction<{ id: string; title: string; content: string; img: string }>) => {
     setPostData(post);
     onOpen();
   };
@@ -42,9 +41,10 @@ export default function Blog() {
   const submitPost = async () => {
     try {
       const docRef = await addDoc(collection(db, "posts"), {
+        id: (Math.floor(Math.random()) + 1).toString(),
         post: "Hello World",
         content: "This is my first post",
-        img: "https://picsum.photos/200",
+        img: "https://images.pexels.com/photos/3184647/pexels-photo-3184647.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
       });
       console.log("Document written with ID: ", docRef.id);
     } catch (e) {
@@ -55,18 +55,12 @@ export default function Blog() {
   const getPosts = async (db: Firestore) => {
     const postsCol = collection(db, "posts");
     const postsSnapshot = await getDocs(postsCol);
-    const postList = postsSnapshot.docs.map((doc) => doc.data());
-    setPosts(postList);
-    return postList;
+    const postArray = [];
+    postsSnapshot.docs.forEach((doc) => {
+      postArray.push({ ...doc.data(), id: doc.id });
+    });
+    setPosts(postArray);
   };
-
-  //! used for real time?
-  // const getPostsSnapshot = async () => {
-  //   const querySnapshot = await getDocs(collection(db, "posts"));
-  //   querySnapshot.forEach((doc) => {
-  //     console.log(`${doc}`);
-  //   });
-  // };
 
   useEffect(() => {
     getPosts(db);
@@ -74,16 +68,17 @@ export default function Blog() {
 
   return (
     <Container maxW={"7xl"} p="12">
+      <Button onClick={submitPost}>Submit test post</Button>
       {isOpen ? <BlogModal postData={postData} isOpen={isOpen} onClose={onClose} /> : null}
       <Heading as="h2" marginTop="5">
         Latest articles
       </Heading>
       <Divider marginTop="5" />
       <Wrap spacing="30px" marginTop="5">
-        {posts.map((post, index) => (
+        {posts.map((post) => (
           <WrapItem
             onClick={() => selectedPost(post)}
-            key={index}
+            key={post.id}
             width={{ base: "100%", sm: "45%", md: "45%", lg: "30%" }}>
             <Box w="100%">
               <Box borderRadius="lg" overflow="hidden">
@@ -111,8 +106,6 @@ export default function Blog() {
               <Text as="p" fontSize="md" marginTop="2">
                 {post.content}
               </Text>
-
-              {/* <BlogAuthor name="John Doe" date={new Date("2021-04-06T19:01:27Z")} /> */}
             </Box>
           </WrapItem>
         ))}
