@@ -13,8 +13,9 @@ import {
 } from "@chakra-ui/react";
 import BlogModal from "components/BlogModal";
 import { db } from "config/firebase";
-import { addDoc, collection, Firestore, getDocs } from "firebase/firestore";
+import { addDoc, collection, deleteDoc, doc, Firestore, onSnapshot } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
+import randomPosts from "utils/randomPost";
 
 type PostFormat = {
   id: string;
@@ -40,30 +41,40 @@ export default function Blog() {
 
   const submitPost = async () => {
     try {
-      const docRef = await addDoc(collection(db, "posts"), {
-        id: (Math.floor(Math.random()) + 1).toString(),
-        post: "Hello World",
-        content: "This is my first post",
-        img: "https://images.pexels.com/photos/3184647/pexels-photo-3184647.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+      const randomPost = randomPosts[Math.floor(Math.random() * randomPosts.length)];
+      await addDoc(collection(db, "posts"), {
+        title: randomPost.title,
+        content: randomPost.content,
+        img: randomPost.img,
       });
-      console.log("Document written with ID: ", docRef.id);
     } catch (e) {
       console.error("Error adding document: ", e);
     }
   };
 
-  const getPosts = async (db: Firestore) => {
+  const realTimeGetPosts = async (db: Firestore) => {
     const postsCol = collection(db, "posts");
-    const postsSnapshot = await getDocs(postsCol);
-    const postArray = [];
-    postsSnapshot.docs.forEach((doc) => {
-      postArray.push({ ...doc.data(), id: doc.id });
+    onSnapshot(postsCol, (snapshot) => {
+      const postArray = [];
+      snapshot.docs.forEach((doc) => {
+        postArray.push({ ...doc.data(), id: doc.id });
+      });
+      setPosts(postArray);
     });
-    setPosts(postArray);
   };
 
+  const deletePost = async (id: string) => {
+    try {
+      await deleteDoc(doc(db, "posts", id));
+    } catch (e) {
+      console.error("Error removing document: ", e);
+    }
+  };
+
+  console.log(posts);
+
   useEffect(() => {
-    getPosts(db);
+    realTimeGetPosts(db);
   }, []);
 
   return (
@@ -76,12 +87,9 @@ export default function Blog() {
       <Divider marginTop="5" />
       <Wrap spacing="30px" marginTop="5">
         {posts.map((post) => (
-          <WrapItem
-            onClick={() => selectedPost(post)}
-            key={post.id}
-            width={{ base: "100%", sm: "45%", md: "45%", lg: "30%" }}>
+          <WrapItem key={post.id} width={{ base: "100%", sm: "45%", md: "45%", lg: "30%" }}>
             <Box w="100%">
-              <Box borderRadius="lg" overflow="hidden">
+              <Box onClick={() => selectedPost(post)} borderRadius="lg" overflow="hidden">
                 <Link textDecoration="none" _hover={{ textDecoration: "none" }}>
                   <Image
                     transform="scale(1.0)"
@@ -106,6 +114,7 @@ export default function Blog() {
               <Text as="p" fontSize="md" marginTop="2">
                 {post.content}
               </Text>
+              <Button onClick={() => deletePost(post.id)}>Delete</Button>
             </Box>
           </WrapItem>
         ))}
