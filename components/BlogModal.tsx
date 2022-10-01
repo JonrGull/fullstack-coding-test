@@ -15,7 +15,7 @@ export default function BlogModal({ postData, isOpen, onClose }) {
   const finalRef = useRef();
 
   return (
-    <Modal finalFocusRef={finalRef} isOpen={isOpen} onClose={onClose}>
+    <Modal size={"xl"} finalFocusRef={finalRef} isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
       <ModalContent>
         <Image src={postData.img} alt="blog photo" />
