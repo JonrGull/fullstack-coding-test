@@ -21,7 +21,7 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import siventhLogo from "public/favicon.ico";
 
-import { useAuth } from "./AuthContext";
+import { useAuth } from "context/AuthContext";
 
 const Links = [
   {
@@ -30,7 +30,7 @@ const Links = [
   },
   {
     name: "Blog",
-    href: "/posts/blog",
+    href: "/blog",
   },
   {
     name: "Secret",
