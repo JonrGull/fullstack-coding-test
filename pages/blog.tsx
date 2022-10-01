@@ -3,10 +3,12 @@ import {
   Button,
   Container,
   Divider,
+  Flex,
   Heading,
   Image,
   Link,
   ScaleFade,
+  Spacer,
   Text,
   useDisclosure,
   Wrap,
@@ -14,6 +16,7 @@ import {
 } from "@chakra-ui/react";
 import BlogModal from "components/BlogModal";
 import LoadingSpinner from "components/LoadingSpinner";
+import WritePostModal from "components/WritePostModal";
 import { db } from "config/firebase";
 import { addDoc, collection, deleteDoc, doc, Firestore, onSnapshot } from "firebase/firestore";
 import React, { SetStateAction, useEffect, useState } from "react";
@@ -30,17 +33,11 @@ export default function Blog() {
   const [posts, setPosts] = useState<PostFormat[]>([]);
   const [fadeIn, setFadeIn] = useState(false);
   const [loading, setLoading] = useState(true);
-
-  const [postData, setPostData] = useState({
-    id: "",
-    title: "",
-    content: "",
-    img: "",
-  });
+  const [postData, setPostData] = useState<PostFormat>();
 
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  const selectedPost = (post: SetStateAction<{ id: string; title: string; content: string; img: string }>) => {
+  const selectedPost = (post: SetStateAction<PostFormat>) => {
     setPostData(post);
     onOpen();
   };
@@ -89,19 +86,24 @@ export default function Blog() {
         <LoadingSpinner />
       ) : (
         <Container maxW={"7xl"} p="12">
-          <Button
-            backgroundColor={"green.300"}
-            color={"white"}
-            _hover={{
-              backgroundColor: "green.500",
-            }}
-            onClick={submitPost}>
-            Submit test post
-          </Button>
+          <Flex>
+            <Box p="4">
+              <Button colorScheme="green" onClick={submitPost}>
+                Submit test post
+              </Button>
+            </Box>
+            <Spacer />
+            <Box p="4">
+              <WritePostModal />
+            </Box>
+          </Flex>
+
           {isOpen ? <BlogModal postData={postData} isOpen={isOpen} onClose={onClose} /> : null}
+
           <Heading as="h2" marginTop="5">
             Latest articles
           </Heading>
+
           <Divider marginTop="5" />
           <Wrap spacing="30px" marginTop="5">
             {posts.map((post) => (
@@ -113,7 +115,7 @@ export default function Blog() {
                         <Image
                           transform="scale(1.0)"
                           src={post.img}
-                          alt="some text"
+                          alt="blog post image"
                           objectFit="contain"
                           width="100%"
                           transition="0.3s ease-in-out"
@@ -133,13 +135,7 @@ export default function Blog() {
                     <Text as="p" fontSize="md" marginTop="2">
                       {post.content}
                     </Text>
-                    <Button
-                      backgroundColor={"red.300"}
-                      _hover={{
-                        backgroundColor: "red.500",
-                      }}
-                      color={"white"}
-                      onClick={() => deletePost(post.id)}>
+                    <Button colorScheme="red" onClick={() => deletePost(post.id)}>
                       Delete
                     </Button>
                   </Box>
