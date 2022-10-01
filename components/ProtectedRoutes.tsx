@@ -1,5 +1,7 @@
+import LoadingSpinner from "components/LoadingSpinner";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
+
 import { useAuth } from "../context/AuthContext";
 
 const ProtectedRoute = ({ children }) => {
@@ -11,6 +13,10 @@ const ProtectedRoute = ({ children }) => {
       router.push("/login");
     }
   }, [router, user]);
+
+  if (!user) {
+    return <LoadingSpinner />;
+  }
 
   return children;
 };
