@@ -55,7 +55,7 @@ export default function Signin() {
                 <Link color={"blue.400"}>Forgot password?</Link>
               </Stack>
               <Button
-                onClick={(e) => handleLogin(e)}
+                onClick={handleLogin}
                 bg={"blue.400"}
                 color={"white"}
                 _hover={{

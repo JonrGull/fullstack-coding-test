@@ -13,9 +13,10 @@ import {
   WrapItem,
 } from "@chakra-ui/react";
 import BlogModal from "components/BlogModal";
+import LoadingSpinner from "components/LoadingSpinner";
 import { db } from "config/firebase";
 import { addDoc, collection, deleteDoc, doc, Firestore, onSnapshot } from "firebase/firestore";
-import React, { useEffect, useState } from "react";
+import React, { SetStateAction, useEffect, useState } from "react";
 import randomPosts from "utils/randomPosts.json";
 
 type PostFormat = {
@@ -28,6 +29,7 @@ type PostFormat = {
 export default function Blog() {
   const [posts, setPosts] = useState<PostFormat[]>([]);
   const [fadeIn, setFadeIn] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const [postData, setPostData] = useState({
     id: "",
@@ -35,9 +37,10 @@ export default function Blog() {
     content: "",
     img: "",
   });
+
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  const selectedPost = (post: React.SetStateAction<{ id: string; title: string; content: string; img: string }>) => {
+  const selectedPost = (post: SetStateAction<{ id: string; title: string; content: string; img: string }>) => {
     setPostData(post);
     onOpen();
   };
@@ -63,6 +66,7 @@ export default function Blog() {
         postArray.push({ ...doc.data(), id: doc.id });
       });
       setPosts(postArray);
+      setLoading(false);
     });
   };
 
@@ -80,65 +84,71 @@ export default function Blog() {
   }, []);
 
   return (
-    <Container maxW={"7xl"} p="12">
-      <Button
-        backgroundColor={"green.300"}
-        color={"white"}
-        _hover={{
-          backgroundColor: "green.500",
-        }}
-        onClick={submitPost}>
-        Submit test post
-      </Button>
-      {isOpen ? <BlogModal postData={postData} isOpen={isOpen} onClose={onClose} /> : null}
-      <Heading as="h2" marginTop="5">
-        Latest articles
-      </Heading>
-      <Divider marginTop="5" />
-      <Wrap spacing="30px" marginTop="5">
-        {posts.map((post) => (
-          <WrapItem key={post.id} width={{ base: "100%", sm: "45%", md: "45%", lg: "30%" }}>
-            <ScaleFade initialScale={0.9} in={fadeIn}>
-              <Box w="100%">
-                <Box onClick={() => selectedPost(post)} borderRadius="lg" overflow="hidden">
-                  <Link textDecoration="none" _hover={{ textDecoration: "none" }}>
-                    <Image
-                      transform="scale(1.0)"
-                      src={post.img}
-                      alt="some text"
-                      objectFit="contain"
-                      width="100%"
-                      transition="0.3s ease-in-out"
+    <>
+      {loading ? (
+        <LoadingSpinner />
+      ) : (
+        <Container maxW={"7xl"} p="12">
+          <Button
+            backgroundColor={"green.300"}
+            color={"white"}
+            _hover={{
+              backgroundColor: "green.500",
+            }}
+            onClick={submitPost}>
+            Submit test post
+          </Button>
+          {isOpen ? <BlogModal postData={postData} isOpen={isOpen} onClose={onClose} /> : null}
+          <Heading as="h2" marginTop="5">
+            Latest articles
+          </Heading>
+          <Divider marginTop="5" />
+          <Wrap spacing="30px" marginTop="5">
+            {posts.map((post) => (
+              <WrapItem key={post.id} width={{ base: "100%", sm: "45%", md: "45%", lg: "30%" }}>
+                <ScaleFade initialScale={0.9} in={fadeIn}>
+                  <Box w="100%">
+                    <Box onClick={() => selectedPost(post)} borderRadius="lg" overflow="hidden">
+                      <Link textDecoration="none" _hover={{ textDecoration: "none" }}>
+                        <Image
+                          transform="scale(1.0)"
+                          src={post.img}
+                          alt="some text"
+                          objectFit="contain"
+                          width="100%"
+                          transition="0.3s ease-in-out"
+                          _hover={{
+                            transform: "scale(1.05)",
+                          }}
+                        />
+                      </Link>
+                    </Box>
+
+                    <Heading fontSize="xl" marginTop="2">
+                      <Link textDecoration="none" _hover={{ textDecoration: "none" }}>
+                        {post.title}
+                      </Link>
+                    </Heading>
+
+                    <Text as="p" fontSize="md" marginTop="2">
+                      {post.content}
+                    </Text>
+                    <Button
+                      backgroundColor={"red.300"}
                       _hover={{
-                        transform: "scale(1.05)",
+                        backgroundColor: "red.500",
                       }}
-                    />
-                  </Link>
-                </Box>
-
-                <Heading fontSize="xl" marginTop="2">
-                  <Link textDecoration="none" _hover={{ textDecoration: "none" }}>
-                    {post.title}
-                  </Link>
-                </Heading>
-
-                <Text as="p" fontSize="md" marginTop="2">
-                  {post.content}
-                </Text>
-                <Button
-                  backgroundColor={"red.300"}
-                  _hover={{
-                    backgroundColor: "red.500",
-                  }}
-                  color={"white"}
-                  onClick={() => deletePost(post.id)}>
-                  Delete
-                </Button>
-              </Box>
-            </ScaleFade>
-          </WrapItem>
-        ))}
-      </Wrap>
-    </Container>
+                      color={"white"}
+                      onClick={() => deletePost(post.id)}>
+                      Delete
+                    </Button>
+                  </Box>
+                </ScaleFade>
+              </WrapItem>
+            ))}
+          </Wrap>
+        </Container>
+      )}
+    </>
   );
 }
