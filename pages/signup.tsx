@@ -1,20 +1,19 @@
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
-import
-  {
-    Box,
-    Button,
-    Flex,
-    FormControl,
-    FormLabel,
-    Heading,
-    Input,
-    InputGroup,
-    InputRightElement,
-    Link,
-    Stack,
-    Text,
-    useColorModeValue
-  } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Flex,
+  FormControl,
+  FormLabel,
+  Heading,
+  Input,
+  InputGroup,
+  InputRightElement,
+  Link,
+  Stack,
+  Text,
+  useColorModeValue,
+} from "@chakra-ui/react";
 import { useAuth } from "context/AuthContext";
 import { useRouter } from "next/router";
 import { useRef, useState } from "react";
@@ -24,7 +23,7 @@ export default function Signup() {
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
-  
+
   const [showPassword, setShowPassword] = useState(false);
 
   const handleSignUp = async (e: { preventDefault: () => void }) => {
@@ -43,7 +42,7 @@ export default function Signup() {
       <Stack spacing={8} mx={"auto"} maxW={"lg"} py={12} px={6}>
         <Stack align={"center"}>
           <Heading fontSize={"4xl"} textAlign={"center"}>
-            Sign up
+            Create your account
           </Heading>
         </Stack>
         <Box rounded={"lg"} bg={useColorModeValue("white", "gray.700")} boxShadow={"lg"} p={8}>

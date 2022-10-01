@@ -1,12 +1,9 @@
 # Install
 
-- Install all packages using
+- Install all packages and start the server
 
-      yarn install
+      yarn install && yarn dev
 
-- Initiate the app with
-
-      yarn dev
 
 ## Environmental variables
 

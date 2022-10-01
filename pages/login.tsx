@@ -9,6 +9,7 @@ import {
   Input,
   Link,
   Stack,
+  Text,
   useColorModeValue,
 } from "@chakra-ui/react";
 import { useAuth } from "context/AuthContext";
@@ -65,16 +66,12 @@ export default function Signin() {
             </Stack>
           </Stack>
 
-          <Stack spacing={10} mt={10}>
-            <Button
-              onClick={() => router.push("/signup")}
-              bg={"blue.400"}
-              color={"white"}
-              _hover={{
-                bg: "blue.500",
-              }}>
-              Create Account
-            </Button>
+          <Stack pt={6}>
+            <Text align={"right"}>
+              <Link href="/signup" color={"blue.400"}>
+                Create Account
+              </Link>
+            </Text>
           </Stack>
         </Box>
       </Stack>
