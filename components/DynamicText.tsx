@@ -1,5 +1,5 @@
-import { Box, Container, Text } from "@chakra-ui/react";
-import { forwardRef, SetStateAction, useImperativeHandle, useState } from "react";
+import { Box, Container, Text } from '@chakra-ui/react';
+import { forwardRef, SetStateAction, useImperativeHandle, useState } from 'react';
 
 const DynamicText = forwardRef((_props, ref) => {
   const [value, setValue] = useState("Random Text");

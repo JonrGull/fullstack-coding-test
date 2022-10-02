@@ -1,4 +1,4 @@
-import { CloseIcon, HamburgerIcon } from "@chakra-ui/icons";
+import { CloseIcon, HamburgerIcon } from '@chakra-ui/icons';
 import {
   Avatar,
   Box,
@@ -16,12 +16,11 @@ import {
   Text,
   useColorModeValue,
   useDisclosure,
-} from "@chakra-ui/react";
-import Image from "next/image";
-import { useRouter } from "next/router";
-import siventhLogo from "public/favicon.ico";
-
-import { useAuth } from "context/AuthContext";
+} from '@chakra-ui/react';
+import { useAuth } from 'context/AuthContext';
+import Image from 'next/image';
+import { useRouter } from 'next/router';
+import siventhLogo from 'public/favicon.ico';
 
 const Links = [
   {

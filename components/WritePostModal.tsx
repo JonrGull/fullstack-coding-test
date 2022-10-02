@@ -11,11 +11,11 @@ import {
   Text,
   Textarea,
   useDisclosure,
-} from "@chakra-ui/react";
-import { db } from "config/firebase";
-import { addDoc, collection } from "firebase/firestore";
-import React, { useRef } from "react";
-import images from "utils/randomImg.json";
+} from '@chakra-ui/react';
+import { db } from 'config/firebase';
+import { addDoc, collection } from 'firebase/firestore';
+import React, { useRef } from 'react';
+import images from 'utils/randomImg.json';
 
 export default function WritePost() {
   const titleRef = useRef(null);
