@@ -19,12 +19,10 @@ const Home = () => {
   useStartTyping(() => {
     dynamicTextRef.current.startConfetti();
   });
-  <Head>
-    <title>Coding Test</title>
-  </Head>;
 
   return (
     <Flex minH={"80vh"} align={"center"} justify={"center"} bg={useColorModeValue("gray.50", "gray.800")}>
+      <title>Coding Test</title>
       <Confetti width={width} height={height} />
       <Stack spacing={8} mx={"auto"} maxW={"lg"} py={12} px={6}>
         <Stack align={"center"}></Stack>
