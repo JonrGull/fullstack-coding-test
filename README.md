@@ -8,7 +8,7 @@
 ## Environmental variables
 
 - A firebase account and web app is needed to run this app
-- Create an `.env.local` file in the root of the project.
+- Use the `example.env.local` to fill in your firebase credentials.
 - Add these variables to their corresponding values found in your firebase project settings:
 
       NEXT_PUBLIC_API_KEY=
