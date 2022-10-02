@@ -1,11 +1,11 @@
-import { Input } from "@chakra-ui/react";
+import { Box, Flex, Input, Stack, useColorModeValue } from "@chakra-ui/react";
 import Head from "next/head";
 import { useRef } from "react";
 import Confetti from "react-confetti";
+import { useStartTyping } from "react-use";
 import useWindowSize from "react-use/lib/useWindowSize";
 
 import DynamicText from "components/DynamicText";
-import styles from "styles/Home.module.css";
 
 const Home = () => {
   const dynamicTextRef = useRef(null);
@@ -16,19 +16,26 @@ const Home = () => {
 
   const { width, height } = useWindowSize();
 
-  return (
-    <div className={styles.container}>
-      <Head>
-        <title>Coding Test</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+  useStartTyping(() => {
+    dynamicTextRef.current.startConfetti();
+  });
+  <Head>
+    <title>Coding Test</title>
+  </Head>;
 
-      <main className={styles.main}>
-        <DynamicText ref={dynamicTextRef} />
-        <Input onChange={onChange} />
-      </main>
+  return (
+    <Flex minH={"80vh"} align={"center"} justify={"center"} bg={useColorModeValue("gray.50", "gray.800")}>
       <Confetti width={width} height={height} />
-    </div>
+      <Stack spacing={8} mx={"auto"} maxW={"lg"} py={12} px={6}>
+        <Stack align={"center"}></Stack>
+        <Box rounded={"lg"} bg={useColorModeValue("white", "gray.700")} boxShadow={"lg"} p={8}>
+          <Stack spacing={4}>
+            <DynamicText ref={dynamicTextRef} />
+            <Input onChange={onChange} />
+          </Stack>
+        </Box>
+      </Stack>
+    </Flex>
   );
 };
 
