@@ -1,9 +1,8 @@
-import { Box, Flex, Input, Stack, useColorModeValue } from '@chakra-ui/react';
-import DynamicText from 'components/DynamicText';
-import { useRef } from 'react';
-import Confetti from 'react-confetti';
-import { useStartTyping } from 'react-use';
-import useWindowSize from 'react-use/lib/useWindowSize';
+import { Box, Flex, Input, Stack, useColorModeValue } from "@chakra-ui/react";
+import DynamicText from "components/DynamicText";
+import { useRef } from "react";
+import Confetti from "react-confetti";
+import useWindowSize from "react-use/lib/useWindowSize";
 
 const Home = () => {
   const dynamicTextRef = useRef(null);
@@ -13,10 +12,6 @@ const Home = () => {
   };
 
   const { width, height } = useWindowSize();
-
-  useStartTyping(() => {
-    dynamicTextRef.current.startConfetti();
-  });
 
   return (
     <Flex minH={"80vh"} align={"center"} justify={"center"} bg={useColorModeValue("gray.50", "gray.800")}>

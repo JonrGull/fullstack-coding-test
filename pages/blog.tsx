@@ -13,14 +13,14 @@ import {
   useDisclosure,
   Wrap,
   WrapItem,
-} from '@chakra-ui/react';
-import BlogModal from 'components/BlogModal';
-import LoadingSpinner from 'components/LoadingSpinner';
-import WritePostModal from 'components/WritePostModal';
-import { db } from 'config/firebase';
-import { addDoc, collection, deleteDoc, doc, Firestore, onSnapshot } from 'firebase/firestore';
-import React, { SetStateAction, useEffect, useState } from 'react';
-import randomPosts from 'utils/randomPosts.json';
+} from "@chakra-ui/react";
+import BlogModal from "components/BlogModal";
+import LoadingSpinner from "components/LoadingSpinner";
+import WritePostModal from "components/WritePostModal";
+import { db } from "config/firebase";
+import { addDoc, collection, deleteDoc, doc, Firestore, onSnapshot } from "firebase/firestore";
+import React, { SetStateAction, useEffect, useState } from "react";
+import randomPosts from "utils/randomPosts.json";
 
 type PostFormat = {
   id: string;
@@ -107,7 +107,7 @@ export default function Blog() {
           <Divider marginTop="5" />
           <Wrap spacing="30px" marginTop="5">
             {posts.map((post) => (
-              <WrapItem key={post.id} width={{ base: "100%", sm: "45%", md: "45%", lg: "30%" }}>
+              <WrapItem key={post.id} minH="sm" width={{ base: "100%", sm: "45%", md: "45%", lg: "30%" }}>
                 <ScaleFade initialScale={0.9} in={fadeIn}>
                   <Box w="100%">
                     <Box onClick={() => selectedPost(post)} borderRadius="lg" overflow="hidden">
@@ -132,7 +132,7 @@ export default function Blog() {
                       </Link>
                     </Heading>
 
-                    <Text as="p" fontSize="md" marginTop="2">
+                    <Text as="p" fontSize="md" marginTop="2" noOfLines={5}>
                       {post.content}
                     </Text>
                     <Button colorScheme="red" onClick={() => deletePost(post.id)}>
