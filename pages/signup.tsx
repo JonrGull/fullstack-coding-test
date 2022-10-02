@@ -30,10 +30,14 @@ export default function Signup() {
 
   const router = useRouter();
 
-
   const handleSignUp = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
 
+    if (passwordRef.current.value.trim() === "") {
+      passwordRef.current.value = "";
+      checkPasswordRef.current.value = "";
+      return setError("Password cannot be empty");
+    }
     if (passwordRef.current.value !== checkPasswordRef.current.value) {
       return setError("Passwords do not match");
     }
