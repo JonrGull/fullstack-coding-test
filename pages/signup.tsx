@@ -1,4 +1,4 @@
-import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
+import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 import {
   Box,
   Button,
@@ -13,11 +13,11 @@ import {
   Stack,
   Text,
   useColorModeValue,
-} from '@chakra-ui/react';
-import ErrorMessage from 'components/ErrorMessage';
-import { useAuth } from 'context/AuthContext';
-import { useRouter } from 'next/router';
-import { useRef, useState } from 'react';
+} from "@chakra-ui/react";
+import ErrorMessage from "components/ErrorMessage";
+import { useAuth } from "context/AuthContext";
+import { useRouter } from "next/router";
+import { useRef, useState } from "react";
 
 export default function Signup() {
   const { signUp } = useAuth();
@@ -69,6 +69,7 @@ export default function Signup() {
                 <FormLabel>Email address</FormLabel>
                 <Input type="email" ref={emailRef} />
               </FormControl>
+              
               <FormControl isRequired>
                 <FormLabel>Password</FormLabel>
                 <InputGroup>
@@ -79,9 +80,20 @@ export default function Signup() {
                     </Button>
                   </InputRightElement>
                 </InputGroup>
-                <FormLabel>Confirm Password</FormLabel>
-                <Input id="checkPassword" type="password" ref={checkPasswordRef} />
               </FormControl>
+
+              <FormControl isRequired>
+                <FormLabel>Confirm Password</FormLabel>
+                <InputGroup>
+                  <Input id="checkPassword" type={showPassword ? "text" : "password"} ref={passwordRef} minLength={6} />
+                  <InputRightElement h={"full"}>
+                    <Button variant={"ghost"} onClick={() => setShowPassword((showPassword) => !showPassword)}>
+                      {showPassword ? <ViewIcon /> : <ViewOffIcon />}
+                    </Button>
+                  </InputRightElement>
+                </InputGroup>
+              </FormControl>
+
               <Stack spacing={10} pt={2}>
                 <Button type="submit" loadingText="Submitting" isLoading={isLoading} colorScheme="blue">
                   Sign up
