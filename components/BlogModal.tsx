@@ -8,8 +8,8 @@ import {
   ModalFooter,
   ModalHeader,
   ModalOverlay,
-} from '@chakra-ui/react';
-import React, { useEffect, useRef } from 'react';
+} from "@chakra-ui/react";
+import React, { useRef } from "react";
 
 export default function BlogModal({ postData, isOpen, onClose }) {
   const finalRef = useRef();
