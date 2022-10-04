@@ -13,21 +13,15 @@ import {
   useDisclosure,
   Wrap,
   WrapItem,
-} from '@chakra-ui/react';
-import BlogModal from 'components/BlogModal';
-import LoadingSpinner from 'components/LoadingSpinner';
-import WritePostModal from 'components/WritePostModal';
-import { db } from 'config/firebase';
-import { addDoc, collection, deleteDoc, doc, Firestore, onSnapshot } from 'firebase/firestore';
-import React, { SetStateAction, useEffect, useState } from 'react';
-import randomPosts from 'utils/randomPosts.json';
-
-type PostFormat = {
-  id: string;
-  title: string;
-  content: string;
-  img: string;
-};
+} from "@chakra-ui/react";
+import BlogModal from "components/BlogModal";
+import LoadingSpinner from "components/LoadingSpinner";
+import WritePostModal from "components/WritePostModal";
+import { db } from "config/firebase";
+import { addDoc, collection, deleteDoc, doc, Firestore, onSnapshot } from "firebase/firestore";
+import { PostFormat } from "globals";
+import React, { SetStateAction, useEffect, useState } from "react";
+import randomPosts from "utils/randomPosts.json";
 
 export default function Blog() {
   const [posts, setPosts] = useState<PostFormat[]>([]);
