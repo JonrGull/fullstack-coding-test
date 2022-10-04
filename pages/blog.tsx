@@ -19,8 +19,8 @@ import LoadingSpinner from "components/LoadingSpinner";
 import WritePostModal from "components/WritePostModal";
 import { db } from "config/firebase";
 import { addDoc, collection, deleteDoc, doc, Firestore, onSnapshot } from "firebase/firestore";
-import { PostFormat } from "globals";
 import React, { SetStateAction, useEffect, useState } from "react";
+import { PostFormat } from "types/posts";
 import randomPosts from "utils/randomPosts.json";
 
 export default function Blog() {
