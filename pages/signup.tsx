@@ -85,7 +85,7 @@ export default function Signup() {
               <FormControl isRequired>
                 <FormLabel>Confirm Password</FormLabel>
                 <InputGroup>
-                  <Input id="checkPassword" type={showPassword ? "text" : "password"} ref={passwordRef} minLength={6} />
+                  <Input id="checkPassword" type={showPassword ? "text" : "password"} ref={checkPasswordRef} minLength={6} />
                   <InputRightElement h={"full"}>
                     <Button variant={"ghost"} onClick={() => setShowPassword((showPassword) => !showPassword)}>
                       {showPassword ? <ViewIcon /> : <ViewOffIcon />}
