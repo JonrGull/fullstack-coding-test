@@ -27,7 +27,7 @@ export default function Blog() {
   const [posts, setPosts] = useState<PostFormat[]>([]);
   const [fadeIn, setFadeIn] = useState(false);
   const [loading, setLoading] = useState(true);
-  const [postData, setPostData] = useState<PostFormat>();
+  const [postData, setPostData] = useState<PostFormat>(null);
 
   const { isOpen, onOpen, onClose } = useDisclosure();
 
