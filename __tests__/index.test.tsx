@@ -1,9 +1,8 @@
-// import "jest-canvas-mock";
-import { ChakraProvider } from "@chakra-ui/react";
-import "@testing-library/jest-dom";
+import '@testing-library/jest-dom';
+import 'jest-canvas-mock';
 
-import { render, screen } from "@testing-library/react";
-import Home from "pages";
+import { render, screen } from '@testing-library/react';
+import Home from 'pages';
 
 describe("Home", () => {
   it("renders an input", () => {

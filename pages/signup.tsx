@@ -15,9 +15,22 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 import ErrorMessage from "components/ErrorMessage";
-import { useAuth } from "context/AuthContext";
+import { useAuth,user } from "context/AuthContext";
 import { useRouter } from "next/router";
 import { useRef, useState } from "react";
+
+// export async function getServerSideProps() {
+// //get user status
+//   const user = await fetch("http://localhost:3000/");
+//   const userStatus = await user.json();
+
+// return {
+//     props: { userStatus }, // will be passed to the page component as props
+//   };
+
+
+
+// }
 
 export default function Signup() {
   const { signUp } = useAuth();
@@ -69,7 +82,7 @@ export default function Signup() {
                 <FormLabel>Email address</FormLabel>
                 <Input type="email" ref={emailRef} />
               </FormControl>
-              
+
               <FormControl isRequired>
                 <FormLabel>Password</FormLabel>
                 <InputGroup>
@@ -85,7 +98,12 @@ export default function Signup() {
               <FormControl isRequired>
                 <FormLabel>Confirm Password</FormLabel>
                 <InputGroup>
-                  <Input id="checkPassword" type={showPassword ? "text" : "password"} ref={checkPasswordRef} minLength={6} />
+                  <Input
+                    id="checkPassword"
+                    type={showPassword ? "text" : "password"}
+                    ref={checkPasswordRef}
+                    minLength={6}
+                  />
                   <InputRightElement h={"full"}>
                     <Button variant={"ghost"} onClick={() => setShowPassword((showPassword) => !showPassword)}>
                       {showPassword ? <ViewIcon /> : <ViewOffIcon />}
