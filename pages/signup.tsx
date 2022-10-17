@@ -16,13 +16,17 @@ import {
 } from '@chakra-ui/react';
 import ErrorMessage from 'components/ErrorMessage';
 import { useAuth } from 'context/AuthContext';
+import { getCookie } from 'cookies-next';
 import { useRouter } from 'next/router';
 import { useRef, useState } from 'react';
 
-export async function getServerSideProps(context: { req: { headers: { cookie: string | string[] } } }) {
-  const token = context.req.headers.cookie;
+export async function getServerSideProps({ req, res }) {
+  const token = getCookie("isAuthenticated", {
+    req,
+    res,
+  });
 
-  if (token.includes("isAuthenticated")) {
+  if (token) {
     return {
       redirect: {
         destination: "/",

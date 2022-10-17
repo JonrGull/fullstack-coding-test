@@ -14,27 +14,31 @@ import {
 } from '@chakra-ui/react';
 import ErrorMessage from 'components/ErrorMessage';
 import { useAuth } from 'context/AuthContext';
+import { getCookie } from 'cookies-next';
 import { useRouter } from 'next/router';
 import { useRef, useState } from 'react';
 
-// export async function getServerSideProps(context: { req: { headers: { cookie: string | string[] } } }) {
-//   const token = context.req.headers.cookie;
+export async function getServerSideProps({ req, res }) {
+  const token = getCookie("isAuthenticated", {
+    req,
+    res,
+  });
 
-//   if (token.includes("isAuthenticated")) {
-//     return {
-//       redirect: {
-//         destination: "/",
-//         permanent: false,
-//       },
-//     };
-//   }
+  if (token) {
+    return {
+      redirect: {
+        destination: "/",
+        permanent: false,
+      },
+    };
+  }
 
-//   return {
-//     props: {},
-//   };
-// }
+  return {
+    props: {},
+  };
+}
 
-export default function Signin() {
+export default function Login() {
   const { login } = useAuth();
   const router = useRouter();
 

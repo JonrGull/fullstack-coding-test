@@ -1,3 +1,4 @@
+import { deleteCookie, setCookie } from "cookies-next";
 import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signOut } from "firebase/auth";
 import { createContext, useContext, useEffect, useState } from "react";
 
@@ -33,14 +34,18 @@ export const AuthContextProvider = ({ children }: { children: React.ReactNode })
   };
 
   const login = (email: string, password: string) => {
-    document.cookie =
-      `token=isAuthenticated; expires=Thu, 01 Jan 9999 00:00:00 UTC; path=/;` + new Date(9999, 1, 1).toUTCString();
+    setCookie("isAuthenticated", "true", {
+      path: "/",
+    });
+
     return signInWithEmailAndPassword(auth, email, password);
   };
 
   const logout = async () => {
     setUser(null);
-    document.cookie = `token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
+    deleteCookie("isAuthenticated", {
+      path: "/",
+    });
     await signOut(auth);
   };
 
