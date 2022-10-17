@@ -11,14 +11,15 @@ import {
   Stack,
   Text,
   useColorModeValue,
-} from '@chakra-ui/react';
-import ErrorMessage from 'components/ErrorMessage';
-import { useAuth } from 'context/AuthContext';
-import { useRouter } from 'next/router';
-import { useRef, useState } from 'react';
+} from "@chakra-ui/react";
+import ErrorMessage from "components/ErrorMessage";
+import { useAuth } from "context/AuthContext";
+import { useRouter } from "next/router";
+import { useEffect, useRef, useState } from "react";
 
 export default function Signin() {
-  const { login } = useAuth();
+  const { user, login } = useAuth();
+
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -38,6 +39,12 @@ export default function Signin() {
       setIsLoading(false);
     }
   };
+
+  useEffect(() => {
+    if (user) {
+      router.push("/");
+    }
+  }, [user, router]);
 
   return (
     <Flex minH={"100vh"} align={"center"} justify={"center"} bg={useColorModeValue("gray.50", "gray.800")}>

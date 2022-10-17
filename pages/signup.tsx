@@ -17,17 +17,14 @@ import {
 import ErrorMessage from "components/ErrorMessage";
 import { useAuth } from "context/AuthContext";
 import { useRouter } from "next/router";
-import { useRef, useState } from "react";
-
-// export async function getServerSideProps() {
-
-// }
+import { useEffect, useRef, useState } from "react";
 
 export default function Signup() {
-  const { signUp } = useAuth();
+  const { user, signUp } = useAuth();
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
   const checkPasswordRef = useRef<HTMLInputElement>(null);
+
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
@@ -56,6 +53,12 @@ export default function Signup() {
       console.log(error);
     }
   };
+
+  useEffect(() => {
+    if (user) {
+      router.push("/");
+    }
+  }, [user, router]);
 
   return (
     <Flex minH={"100vh"} align={"center"} justify={"center"} bg={useColorModeValue("gray.50", "gray.800")}>
