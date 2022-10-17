@@ -1,7 +1,7 @@
-import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signOut } from 'firebase/auth';
-import { createContext, useContext, useEffect, useState } from 'react';
+import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signOut } from "firebase/auth";
+import { createContext, useContext, useEffect, useState } from "react";
 
-import { auth } from '../config/firebase';
+import { auth } from "../config/firebase";
 
 const AuthContext = createContext<any>({});
 
@@ -33,7 +33,8 @@ export const AuthContextProvider = ({ children }: { children: React.ReactNode })
   };
 
   const login = (email: string, password: string) => {
-    document.cookie = `token=isAuthenticated; expires=; path=/;` + new Date(9999, 1, 1).toUTCString();
+    document.cookie =
+      `token=isAuthenticated; expires=Thu, 01 Jan 9999 00:00:00 UTC; path=/;` + new Date(9999, 1, 1).toUTCString();
     return signInWithEmailAndPassword(auth, email, password);
   };
 
