@@ -15,24 +15,24 @@ import {
 import ErrorMessage from 'components/ErrorMessage';
 import { useAuth } from 'context/AuthContext';
 import { useRouter } from 'next/router';
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 
-export async function getServerSideProps(context: { req: { headers: { cookie: string | string[] } } }) {
-  const token = context.req.headers.cookie;
+// export async function getServerSideProps(context: { req: { headers: { cookie: string | string[] } } }) {
+//   const token = context.req.headers.cookie;
 
-  if (token.includes("isAuthenticated")) {
-    return {
-      redirect: {
-        destination: "/",
-        permanent: false,
-      },
-    };
-  }
+//   if (token.includes("isAuthenticated")) {
+//     return {
+//       redirect: {
+//         destination: "/",
+//         permanent: false,
+//       },
+//     };
+//   }
 
-  return {
-    props: {},
-  };
-}
+//   return {
+//     props: {},
+//   };
+// }
 
 export default function Signin() {
   const { login } = useAuth();
