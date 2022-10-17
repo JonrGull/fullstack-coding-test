@@ -1,6 +1,6 @@
-import { Box, Center, Text } from "@chakra-ui/react";
-import { useRouter } from "next/router";
-import React, { useEffect } from "react";
+import { Box, Center, Text } from '@chakra-ui/react';
+import { useRouter } from 'next/router';
+import React, { useEffect } from 'react';
 
 export default function NotFound() {
   const router = useRouter();

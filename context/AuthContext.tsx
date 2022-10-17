@@ -33,11 +33,13 @@ export const AuthContextProvider = ({ children }: { children: React.ReactNode })
   };
 
   const login = (email: string, password: string) => {
+    document.cookie = `token=isAuthenticated; expires=; path=/;` + new Date(9999, 1, 1).toUTCString();
     return signInWithEmailAndPassword(auth, email, password);
   };
 
   const logout = async () => {
     setUser(null);
+    document.cookie = `token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
     await signOut(auth);
   };
 

@@ -1,4 +1,4 @@
-import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
+import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 import {
   Box,
   Button,
@@ -13,14 +13,31 @@ import {
   Stack,
   Text,
   useColorModeValue,
-} from "@chakra-ui/react";
-import ErrorMessage from "components/ErrorMessage";
-import { useAuth } from "context/AuthContext";
-import { useRouter } from "next/router";
-import { useEffect, useRef, useState } from "react";
+} from '@chakra-ui/react';
+import ErrorMessage from 'components/ErrorMessage';
+import { useAuth } from 'context/AuthContext';
+import { useRouter } from 'next/router';
+import { useRef, useState } from 'react';
+
+export async function getServerSideProps(context: { req: { headers: { cookie: string | string[] } } }) {
+  const token = context.req.headers.cookie;
+
+  if (token.includes("isAuthenticated")) {
+    return {
+      redirect: {
+        destination: "/",
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: {},
+  };
+}
 
 export default function Signup() {
-  const { user, signUp } = useAuth();
+  const { signUp } = useAuth();
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
   const checkPasswordRef = useRef<HTMLInputElement>(null);
@@ -53,12 +70,6 @@ export default function Signup() {
       console.log(error);
     }
   };
-
-  useEffect(() => {
-    if (user) {
-      router.push("/");
-    }
-  }, [user, router]);
 
   return (
     <Flex minH={"100vh"} align={"center"} justify={"center"} bg={useColorModeValue("gray.50", "gray.800")}>
