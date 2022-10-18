@@ -16,29 +16,9 @@ import {
 } from '@chakra-ui/react';
 import ErrorMessage from 'components/ErrorMessage';
 import { useAuth } from 'context/AuthContext';
-import { getCookie } from 'cookies-next';
 import { useRouter } from 'next/router';
 import { useRef, useState } from 'react';
-
-export async function getServerSideProps({ req, res }) {
-  const token = getCookie("isAuthenticated", {
-    req,
-    res,
-  });
-
-  if (token) {
-    return {
-      redirect: {
-        destination: "/",
-        permanent: false,
-      },
-    };
-  }
-
-  return {
-    props: {},
-  };
-}
+import { getServerSideProps } from 'services/checkAuth';
 
 export default function Signup() {
   const { signUp } = useAuth();
@@ -141,3 +121,5 @@ export default function Signup() {
     </Flex>
   );
 }
+
+export { getServerSideProps };
