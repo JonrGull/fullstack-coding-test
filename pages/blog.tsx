@@ -36,7 +36,7 @@ export default function Blog() {
     onOpen();
   };
 
-  const submitPost = async () => {
+  const submitTestPost = async () => {
     try {
       const randomPost = randomPosts["posts"][Math.floor(Math.random() * randomPosts["posts"].length)];
       await addDoc(collection(db, "posts"), {
@@ -81,7 +81,7 @@ export default function Blog() {
       ) : (
         <Container maxW={"7xl"} p={10}>
           <Flex>
-            <Button colorScheme="green" onClick={submitPost}>
+            <Button colorScheme="green" onClick={submitTestPost}>
               Submit test post
             </Button>
             <Spacer />
