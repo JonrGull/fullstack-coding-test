@@ -99,8 +99,17 @@ export default function Blog() {
             {posts.map((post) => (
               <WrapItem key={post.id} minH="sm" width={{ base: "100%", sm: "45%", md: "45%", lg: "30%" }}>
                 <ScaleFade initialScale={0.9} in={fadeIn}>
-                  <Box position={"relative"} minH={"lg"} mt={5} ml={1} mb={1} w="100%" rounded="sm" shadow="md">
-                    <Box onClick={() => selectedPost(post)} borderRadius="lg" overflow="hidden">
+                  <Box
+                    position={"relative"}
+                    minH={"lg"}
+                    mt={5}
+                    ml={1}
+                    mb={1}
+                    rounded="sm"
+                    shadow="md"
+                    cursor={"pointer"}
+                    onClick={() => selectedPost(post)}>
+                    <Box borderRadius="lg" overflow="hidden">
                       <Link textDecoration="none" _hover={{ textDecoration: "none" }}>
                         <Image
                           transform="scale(1.0)"
