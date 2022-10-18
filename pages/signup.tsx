@@ -33,20 +33,24 @@ export default function Signup() {
   const router = useRouter();
 
   const handleSignUp = async (e: { preventDefault: () => void }) => {
+    const userEmail = emailRef.current.value;
+    let userPassword = passwordRef.current.value;
+    let userCheckPassword = checkPasswordRef.current.value;
+
     e.preventDefault();
 
-    if (passwordRef.current.value.trim() === "") {
-      passwordRef.current.value = "";
-      checkPasswordRef.current.value = "";
+    if (userPassword.trim() === "") {
+      userPassword = "";
+      userCheckPassword = "";
       return setError("Password cannot be empty");
     }
-    if (passwordRef.current.value !== checkPasswordRef.current.value) {
+    if (userPassword !== userCheckPassword) {
       return setError("Passwords do not match");
     }
 
     try {
       setIsLoading(true);
-      await signUp(emailRef.current.value, passwordRef.current.value);
+      await signUp(userEmail, userPassword);
       router.push("/");
       setIsLoading(false);
     } catch (error) {
