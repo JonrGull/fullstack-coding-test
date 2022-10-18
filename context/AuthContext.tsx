@@ -29,24 +29,29 @@ export const AuthContextProvider = ({ children }: { children: React.ReactNode })
     return () => unsubscribe();
   }, []);
 
-  const signUp = (email: string, password: string) => {
-    return createUserWithEmailAndPassword(auth, email, password);
-  };
-
-  const login = (email: string, password: string) => {
+  const signUp = async (email: string, password: string) => {
+    await createUserWithEmailAndPassword(auth, email, password);
     setCookie("isAuthenticated", "true", {
       path: "/",
     });
+    return;
+  };
 
-    return signInWithEmailAndPassword(auth, email, password);
+  const login = async (email: string, password: string) => {
+    await signInWithEmailAndPassword(auth, email, password);
+    setCookie("isAuthenticated", "true", {
+      path: "/",
+    });
+    return;
   };
 
   const logout = async () => {
     setUser(null);
+    await signOut(auth);
     deleteCookie("isAuthenticated", {
       path: "/",
     });
-    await signOut(auth);
+    return;
   };
 
   return <Provider value={{ user, login, signUp, logout }}>{loading ? null : children}</Provider>;

@@ -11,12 +11,12 @@ import {
   Stack,
   Text,
   useColorModeValue,
-} from '@chakra-ui/react';
-import ErrorMessage from 'components/ErrorMessage';
-import { useAuth } from 'context/AuthContext';
-import { useRouter } from 'next/router';
-import { useRef, useState } from 'react';
-import { getServerSideProps } from 'services/checkAuth';
+} from "@chakra-ui/react";
+import ErrorMessage from "components/ErrorMessage";
+import { useAuth } from "context/AuthContext";
+import { useRouter } from "next/router";
+import { useRef, useState } from "react";
+import { getServerSideProps } from "services/checkAuth";
 
 export default function Login() {
   const { login } = useAuth();
@@ -28,6 +28,7 @@ export default function Login() {
   const [error, setError] = useState("");
 
   const handleLogin = async (e: { preventDefault: () => void }) => {
+
     e.preventDefault();
     try {
       setIsLoading(true);
