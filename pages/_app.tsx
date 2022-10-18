@@ -16,10 +16,8 @@ const MyApp = ({ Component, pageProps }) => {
           <Component {...pageProps} />
         ) : (
           <ProtectedRoute>
-            <>
-              <Navbar />
-              <Component {...pageProps} />
-            </>
+            <Navbar />
+            <Component {...pageProps} />
           </ProtectedRoute>
         )}
       </AuthContextProvider>
