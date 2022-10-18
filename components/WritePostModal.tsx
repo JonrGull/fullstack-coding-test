@@ -11,11 +11,11 @@ import {
   Text,
   Textarea,
   useDisclosure,
-} from '@chakra-ui/react';
-import { db } from 'config/firebase';
-import { addDoc, collection } from 'firebase/firestore';
-import React, { useRef } from 'react';
-import images from 'utils/randomImg.json';
+} from "@chakra-ui/react";
+import { db } from "config/firebase";
+import { addDoc, collection } from "firebase/firestore";
+import React, { useRef } from "react";
+import images from "utils/randomImg.json";
 
 export default function WritePost() {
   const titleRef = useRef(null);
@@ -24,13 +24,17 @@ export default function WritePost() {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const handleWritePost = async () => {
-    if (titleRef.current.value === "" || contentRef.current.value === "") return;
+    const titleVal = titleRef.current.value;
+    const contentVal = contentRef.current.value;
+    const imgVal = images["images"][Math.floor(Math.random() * images["images"].length)];
+
+    if (titleVal === "" || contentVal === "") return;
 
     try {
       await addDoc(collection(db, "posts"), {
-        title: titleRef.current.value,
-        content: contentRef.current.value,
-        img: images["images"][Math.floor(Math.random() * images["images"].length)],
+        title: titleVal,
+        content: contentVal,
+        img: imgVal,
       });
       onClose();
     } catch (e) {

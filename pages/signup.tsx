@@ -1,4 +1,4 @@
-import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
+import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 import {
   Box,
   Button,
@@ -13,12 +13,12 @@ import {
   Stack,
   Text,
   useColorModeValue,
-} from '@chakra-ui/react';
-import ErrorMessage from 'components/ErrorMessage';
-import { useAuth } from 'context/AuthContext';
-import { useRouter } from 'next/router';
-import { useRef, useState } from 'react';
-import { getServerSideProps } from 'services/checkAuth';
+} from "@chakra-ui/react";
+import ErrorMessage from "components/ErrorMessage";
+import { useAuth } from "context/AuthContext";
+import { useRouter } from "next/router";
+import { useRef, useState } from "react";
+import { getServerSideProps } from "services/checkAuth";
 
 export default function Signup() {
   const { signUp } = useAuth();
