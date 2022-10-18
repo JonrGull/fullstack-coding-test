@@ -79,31 +79,27 @@ export default function Blog() {
       {loading ? (
         <LoadingSpinner />
       ) : (
-        <Container maxW={"7xl"} p="12">
+        <Container maxW={"7xl"} p={10}>
           <Flex>
-            <Box p="4">
-              <Button colorScheme="green" onClick={submitPost}>
-                Submit test post
-              </Button>
-            </Box>
+            <Button colorScheme="green" onClick={submitPost}>
+              Submit test post
+            </Button>
             <Spacer />
-            <Box p="4">
-              <WritePostModal />
-            </Box>
+            <WritePostModal />
           </Flex>
 
           {isOpen ? <BlogModal postData={postData} isOpen={isOpen} onClose={onClose} /> : null}
 
-          <Heading as="h2" marginTop="5">
+          <Heading as="h2" mt={5}>
             Latest articles
           </Heading>
 
-          <Divider marginTop="5" />
-          <Wrap spacing="30px" marginTop="5">
+          <Divider mt={5} />
+          <Wrap spacing="30px">
             {posts.map((post) => (
               <WrapItem key={post.id} minH="sm" width={{ base: "100%", sm: "45%", md: "45%", lg: "30%" }}>
                 <ScaleFade initialScale={0.9} in={fadeIn}>
-                  <Box w="100%">
+                  <Box position={"relative"} minH={"lg"} mt={5} ml={1} mb={1} w="100%" rounded="sm" shadow="md">
                     <Box onClick={() => selectedPost(post)} borderRadius="lg" overflow="hidden">
                       <Link textDecoration="none" _hover={{ textDecoration: "none" }}>
                         <Image
@@ -120,16 +116,22 @@ export default function Blog() {
                       </Link>
                     </Box>
 
-                    <Heading fontSize="xl" marginTop="2">
+                    <Heading fontSize="xl" mt={2} pl={2}>
                       <Link textDecoration="none" _hover={{ textDecoration: "none" }}>
                         {post.title}
                       </Link>
                     </Heading>
 
-                    <Text as="p" fontSize="md" marginTop="2" noOfLines={5}>
+                    <Text as="p" fontSize="md" mt={2} px={2} noOfLines={6}>
                       {post.content}
                     </Text>
-                    <Button colorScheme="red" onClick={() => deletePost(post.id)}>
+                    <Button
+                      position={"absolute"}
+                      bottom={0}
+                      left={0}
+                      m={2}
+                      colorScheme="red"
+                      onClick={() => deletePost(post.id)}>
                       Delete
                     </Button>
                   </Box>
