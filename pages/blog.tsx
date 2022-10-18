@@ -27,12 +27,12 @@ export default function Blog() {
   const [posts, setPosts] = useState<PostFormat[]>([]);
   const [fadeIn, setFadeIn] = useState(false);
   const [loading, setLoading] = useState(true);
-  const [postData, setPostData] = useState<PostFormat>(null);
+  const [selectPost, setSelectPost] = useState<PostFormat>(null);
 
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const selectedPost = (post: SetStateAction<PostFormat>) => {
-    setPostData(post);
+    setSelectPost(post);
     onOpen();
   };
 
@@ -88,7 +88,7 @@ export default function Blog() {
             <WritePostModal />
           </Flex>
 
-          {isOpen ? <BlogModal postData={postData} isOpen={isOpen} onClose={onClose} /> : null}
+          {isOpen ? <BlogModal postData={selectPost} isOpen={isOpen} onClose={onClose} /> : null}
 
           <Heading as="h2" mt={5}>
             Latest articles
