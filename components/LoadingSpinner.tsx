@@ -1,5 +1,4 @@
-import { Center, Spinner } from '@chakra-ui/react';
-import React from 'react';
+import { Center, Spinner } from "@chakra-ui/react";
 
 export default function LoadingSpinner() {
   return (
@@ -8,4 +7,3 @@ export default function LoadingSpinner() {
     </Center>
   );
 }
-

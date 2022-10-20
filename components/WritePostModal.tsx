@@ -13,7 +13,7 @@ import {
 } from "@chakra-ui/react";
 import { db } from "config/firebase/firebase";
 import { addDoc, collection } from "firebase/firestore";
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import images from "utils/randomImg.json";
 
 import ErrorMessage from "./ErrorMessage";

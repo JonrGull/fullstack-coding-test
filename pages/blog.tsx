@@ -20,7 +20,7 @@ import WritePostModal from "components/WritePostModal";
 import { Private } from "config/firebase/authRoute";
 import { db } from "config/firebase/firebase";
 import { addDoc, collection, deleteDoc, doc, Firestore, onSnapshot } from "firebase/firestore";
-import React, { SetStateAction, useEffect, useState } from "react";
+import { SetStateAction, useEffect, useState } from "react";
 import { PostFormat } from "types/posts";
 import randomPosts from "utils/randomPosts.json";
 

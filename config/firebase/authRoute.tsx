@@ -2,7 +2,7 @@ import LoadingSpinner from "components/LoadingSpinner";
 import Navbar from "components/Navbar";
 import { useAuth } from "context/AuthContext";
 import { useRouter } from "next/router";
-import React, { ElementType } from "react";
+import { ElementType } from "react";
 
 export function Public(Component: ElementType) {
   return function Public({ ...props }) {
