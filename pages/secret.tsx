@@ -14,6 +14,7 @@ const Secret = () => {
 
   return (
     <>
+      <title>Secret</title>
       <Button onClick={handleShowText} size="xs" rounded="5px" colorScheme="blackAlpha" variant="ghost">
         SECRET
       </Button>

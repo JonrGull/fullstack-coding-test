@@ -77,6 +77,7 @@ const Blog = () => {
 
   return (
     <>
+      <title>Blog</title>
       {loading ? (
         <LoadingSpinner />
       ) : (
