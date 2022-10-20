@@ -1,8 +1,7 @@
-import { deleteCookie, setCookie } from "cookies-next";
 import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signOut } from "firebase/auth";
 import { createContext, useContext, useEffect, useState } from "react";
 
-import { auth } from "../config/firebase";
+import { auth } from "../config/firebase/firebase";
 
 const AuthContext = createContext<any>({});
 
@@ -11,7 +10,7 @@ const { Provider } = AuthContext;
 
 export const AuthContextProvider = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = useState<any>(null);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -31,26 +30,17 @@ export const AuthContextProvider = ({ children }: { children: React.ReactNode })
 
   const signUp = async (email: string, password: string) => {
     await createUserWithEmailAndPassword(auth, email, password);
-    setCookie("isAuthenticated", "true", {
-      path: "/",
-    });
     return;
   };
 
   const login = async (email: string, password: string) => {
     await signInWithEmailAndPassword(auth, email, password);
-    setCookie("isAuthenticated", "true", {
-      path: "/",
-    });
     return;
   };
 
   const logout = async () => {
     setUser(null);
     await signOut(auth);
-    deleteCookie("isAuthenticated", {
-      path: "/",
-    });
     return;
   };
 

@@ -16,9 +16,9 @@ import ErrorMessage from "components/ErrorMessage";
 import { useAuth } from "context/AuthContext";
 import { useRouter } from "next/router";
 import { useRef, useState } from "react";
-import { getServerSideProps } from "services/checkAuth";
+import { Public } from "config/firebase/authRoute";
 
-export default function Login() {
+const Login = () => {
   const { login } = useAuth();
   const router = useRouter();
 
@@ -85,6 +85,6 @@ export default function Login() {
       </Stack>
     </Flex>
   );
-}
+};
 
-export { getServerSideProps };
+export default Public(Login);

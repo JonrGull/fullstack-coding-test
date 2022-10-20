@@ -18,9 +18,9 @@ import ErrorMessage from "components/ErrorMessage";
 import { useAuth } from "context/AuthContext";
 import { useRouter } from "next/router";
 import { useRef, useState } from "react";
-import { getServerSideProps } from "services/checkAuth";
+import { Public } from "config/firebase/authRoute";
 
-export default function Signup() {
+const Signup = () => {
   const { signUp } = useAuth();
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
@@ -124,6 +124,6 @@ export default function Signup() {
       </Stack>
     </Flex>
   );
-}
+};
 
-export { getServerSideProps };
+export default Public(Signup);

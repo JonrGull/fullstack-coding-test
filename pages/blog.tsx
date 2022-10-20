@@ -16,14 +16,16 @@ import {
 } from "@chakra-ui/react";
 import BlogModal from "components/BlogModal";
 import LoadingSpinner from "components/LoadingSpinner";
+import Navbar from "components/Navbar";
 import WritePostModal from "components/WritePostModal";
-import { db } from "config/firebase";
+import { Private } from "config/firebase/authRoute";
+import { db } from "config/firebase/firebase";
 import { addDoc, collection, deleteDoc, doc, Firestore, onSnapshot } from "firebase/firestore";
 import React, { SetStateAction, useEffect, useState } from "react";
 import { PostFormat } from "types/posts";
 import randomPosts from "utils/randomPosts.json";
 
-export default function Blog() {
+const Blog = () => {
   const [posts, setPosts] = useState<PostFormat[]>([]);
   const [fadeIn, setFadeIn] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -76,6 +78,7 @@ export default function Blog() {
 
   return (
     <>
+      <Navbar />
       {loading ? (
         <LoadingSpinner />
       ) : (
@@ -152,4 +155,6 @@ export default function Blog() {
       )}
     </>
   );
-}
+};
+
+export default Private(Blog);

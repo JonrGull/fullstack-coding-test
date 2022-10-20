@@ -12,7 +12,7 @@ import {
   Textarea,
   useDisclosure,
 } from "@chakra-ui/react";
-import { db } from "config/firebase";
+import { db } from "config/firebase/firebase";
 import { addDoc, collection } from "firebase/firestore";
 import React, { useRef } from "react";
 import images from "utils/randomImg.json";
