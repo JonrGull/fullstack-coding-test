@@ -3,7 +3,6 @@ import {
   Center,
   Input,
   Modal,
-  ModalBody,
   ModalCloseButton,
   ModalContent,
   ModalFooter,
@@ -14,11 +13,14 @@ import {
 } from "@chakra-ui/react";
 import { db } from "config/firebase/firebase";
 import { addDoc, collection } from "firebase/firestore";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import images from "utils/randomImg.json";
+
+import ErrorMessage from "./ErrorMessage";
 
 export default function WritePost() {
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
   const titleRef = useRef(null);
   const contentRef = useRef(null);
 
@@ -29,7 +31,10 @@ export default function WritePost() {
     const contentVal = contentRef.current.value;
     const imgVal = images["images"][Math.floor(Math.random() * images["images"].length)];
 
-    if (titleVal === "" || contentVal === "") return;
+    if (titleVal === "" || contentVal === "") {
+      setError("Please fill out all fields");
+      return;
+    }
 
     try {
       setLoading(true);
@@ -45,6 +50,12 @@ export default function WritePost() {
     }
   };
 
+  useEffect(() => {
+    if (isOpen) {
+      setError(null);
+    }
+  }, [isOpen]);
+
   return (
     <>
       <Button colorScheme="blue" onClick={onOpen}>
@@ -53,10 +64,10 @@ export default function WritePost() {
       <Modal size="2xl" closeOnOverlayClick={false} isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent p={10}>
-          <Input isRequired mb={10} ref={titleRef} placeholder="Title" />
-          <Textarea isRequired ref={contentRef} placeholder="Content" />
+          {error && <ErrorMessage message={error} />}
+          <Input mb={10} ref={titleRef} placeholder="Title" />
+          <Textarea ref={contentRef} placeholder="Content" />
           <ModalCloseButton />
-          <ModalBody pb={6}></ModalBody>
           <ModalFooter>
             <Center>
               <Text mr={100}>A photo will be chosen for you.</Text>

@@ -15,10 +15,10 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 import ErrorMessage from "components/ErrorMessage";
+import { Public } from "config/firebase/authRoute";
 import { useAuth } from "context/AuthContext";
 import { useRouter } from "next/router";
 import { useRef, useState } from "react";
-import { Public } from "config/firebase/authRoute";
 
 const Signup = () => {
   const { signUp } = useAuth();
