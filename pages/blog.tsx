@@ -100,48 +100,44 @@ const Blog = () => {
             {posts.map((post) => (
               <WrapItem key={post.id} minH="sm" width={{ base: "100%", sm: "45%", md: "45%", lg: "30%" }}>
                 <ScaleFade initialScale={0.9} in={fadeIn}>
-                  <Box
-                    position={"relative"}
-                    minH={"lg"}
-                    mt={5}
-                    ml={1}
-                    mb={1}
-                    rounded="sm"
-                    shadow="md"
-                    cursor={"pointer"}
-                    onClick={() => selectedPost(post)}>
-                    <Box borderRadius="lg" overflow="hidden">
-                      <Link textDecoration="none" _hover={{ textDecoration: "none" }}>
-                        <Image
-                          transform="scale(1.0)"
-                          src={post.img}
-                          alt="blog post image"
-                          objectFit="contain"
-                          width="100%"
-                          transition="0.3s ease-in-out"
-                          _hover={{
-                            transform: "scale(1.05)",
-                          }}
-                        />
-                      </Link>
+                  <Box>
+                    <Box
+                      position={"relative"}
+                      minH={"lg"}
+                      mt={5}
+                      ml={1}
+                      mb={1}
+                      rounded="sm"
+                      shadow="md"
+                      cursor={"pointer"}
+                      onClick={() => selectedPost(post)}>
+                      <Box borderRadius="lg" overflow="hidden">
+                        <Link textDecoration="none" _hover={{ textDecoration: "none" }}>
+                          <Image
+                            transform="scale(1.0)"
+                            src={post.img}
+                            alt="blog post image"
+                            objectFit="contain"
+                            width="100%"
+                            transition="0.3s ease-in-out"
+                            _hover={{
+                              transform: "scale(1.05)",
+                            }}
+                          />
+                        </Link>
+                      </Box>
+
+                      <Heading fontSize="xl" mt={2} pl={2}>
+                        <Link textDecoration="none" _hover={{ textDecoration: "none" }}>
+                          {post.title}
+                        </Link>
+                      </Heading>
+
+                      <Text as="p" fontSize="md" mt={2} px={2} noOfLines={6}>
+                        {post.content}
+                      </Text>
                     </Box>
-
-                    <Heading fontSize="xl" mt={2} pl={2}>
-                      <Link textDecoration="none" _hover={{ textDecoration: "none" }}>
-                        {post.title}
-                      </Link>
-                    </Heading>
-
-                    <Text as="p" fontSize="md" mt={2} px={2} noOfLines={6}>
-                      {post.content}
-                    </Text>
-                    <Button
-                      position={"absolute"}
-                      bottom={0}
-                      left={0}
-                      m={2}
-                      colorScheme="red"
-                      onClick={() => deletePost(post.id)}>
+                    <Button colorScheme="red" ml={1} onClick={() => deletePost(post.id)}>
                       Delete
                     </Button>
                   </Box>
