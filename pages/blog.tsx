@@ -16,7 +16,6 @@ import {
 } from "@chakra-ui/react";
 import BlogModal from "components/BlogModal";
 import LoadingSpinner from "components/LoadingSpinner";
-import Navbar from "components/Navbar";
 import WritePostModal from "components/WritePostModal";
 import { Private } from "config/firebase/authRoute";
 import { db } from "config/firebase/firebase";
@@ -78,7 +77,6 @@ const Blog = () => {
 
   return (
     <>
-      <Navbar />
       {loading ? (
         <LoadingSpinner />
       ) : (

@@ -6,7 +6,6 @@ import {
   Flex,
   HStack,
   IconButton,
-  Link,
   Menu,
   MenuButton,
   MenuDivider,
@@ -19,6 +18,7 @@ import {
 } from "@chakra-ui/react";
 import { useAuth } from "context/AuthContext";
 import Image from "next/image";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import siventhLogo from "public/favicon.ico";
 
@@ -38,17 +38,7 @@ const Links = [
 ];
 
 const NavLink = ({ children, href }: { children: React.ReactNode; href: string }) => (
-  <Link
-    px={2}
-    py={1}
-    rounded={"md"}
-    _hover={{
-      textDecoration: "none",
-      bg: useColorModeValue("gray.200", "gray.700"),
-    }}
-    href={href}>
-    {children}
-  </Link>
+  <Link href={href}>{children}</Link>
 );
 
 export default function Navbar() {
@@ -84,7 +74,7 @@ export default function Navbar() {
             <HStack as={"nav"} spacing={4} display={{ base: "none", md: "flex" }}>
               {Links.map((link) => (
                 <NavLink key={link.name} href={link.href}>
-                  {link.name}
+                  <Button>{link.name}</Button>
                 </NavLink>
               ))}
             </HStack>

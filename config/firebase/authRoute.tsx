@@ -1,4 +1,5 @@
 import LoadingSpinner from "components/LoadingSpinner";
+import Navbar from "components/Navbar";
 import { useAuth } from "context/AuthContext";
 import { useRouter } from "next/router";
 import React, { ElementType } from "react";
@@ -25,6 +26,11 @@ export function Private(Component: ElementType) {
       router.push("/login");
       return <LoadingSpinner />;
     }
-    return <Component auth={auth} {...props} />;
+    return (
+      <>
+        <Navbar />
+        <Component auth={auth} {...props} />
+      </>
+    );
   };
 }
