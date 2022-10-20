@@ -14,10 +14,11 @@ import {
 } from "@chakra-ui/react";
 import { db } from "config/firebase/firebase";
 import { addDoc, collection } from "firebase/firestore";
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import images from "utils/randomImg.json";
 
 export default function WritePost() {
+  const [loading, setLoading] = useState(false);
   const titleRef = useRef(null);
   const contentRef = useRef(null);
 
@@ -31,12 +32,14 @@ export default function WritePost() {
     if (titleVal === "" || contentVal === "") return;
 
     try {
+      setLoading(true);
       await addDoc(collection(db, "posts"), {
         title: titleVal,
         content: contentVal,
         img: imgVal,
       });
       onClose();
+      setLoading(false);
     } catch (e) {
       console.error("Error adding document: ", e);
     }
@@ -58,7 +61,7 @@ export default function WritePost() {
             <Center>
               <Text mr={100}>A photo will be chosen for you.</Text>
             </Center>
-            <Button onClick={handleWritePost} colorScheme="blue" mr={3}>
+            <Button onClick={handleWritePost} isLoading={loading} colorScheme="blue" mr={3}>
               Post!
             </Button>
             <Button onClick={onClose}>Cancel</Button>
